@@ -279,4 +279,8 @@ input {
   flex-direction: column;
   align-content: space-around;
 }
+.radius {
+  accent-color: #ad1f66;
+  border: none;
+}
 </style>
