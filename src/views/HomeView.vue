@@ -97,7 +97,7 @@
           id="volume"
           name="volume"
           min="1"
-          max="2000"
+          max="5000"
           step="1"
         />
       </div>
