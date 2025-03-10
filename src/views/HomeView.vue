@@ -3,17 +3,20 @@
     <section class="kredyt">
       <h1>Kalkulator oszczędności na kredycie gotówkowym</h1>
       <div class="input">
-        <h3>Kwota Pozostałego Kredytu:</h3>
+        <h3>Początkowa Kwota Kredytu:</h3>
         <input
-          v-model="remainingLoanAmount"
+          v-model="startingLoanAmount"
           type="text"
           placeholder="100 000zł"
           inputmode="numeric"
+          @input="
+            (event) => (startingLoanAmount = handleInput(event, 200000, true))
+          "
         />
 
         <input
           class="radius"
-          v-model="remainingLoanAmount"
+          v-model="startingLoanAmount"
           type="range"
           id="volume"
           name="volume"
@@ -23,17 +26,20 @@
         />
       </div>
       <div class="input">
-        <h3>Początkowa Kwota Kredytu:</h3>
+        <h3>Kwota Pozostałego Kredytu:</h3>
         <input
-          v-model="startingLoanAmount"
+          v-model="remainingLoanAmount"
           type="text"
           placeholder="50 000zł"
           inputmode="numeric"
+          @input="
+            (event) => (remainingLoanAmount = handleInput(event, 200000, true))
+          "
         />
 
         <input
           class="radius"
-          v-model="startingLoanAmount"
+          v-model="remainingLoanAmount"
           type="range"
           id="volume"
           name="volume"
@@ -42,6 +48,7 @@
           step="100"
         />
       </div>
+
       <div class="input">
         <h3>Początkowa Liczba Rat:</h3>
         <input
@@ -49,6 +56,7 @@
           type="text"
           inputmode="numeric"
           placeholder="60"
+          @input="(event) => (totalInstallments = handleInput(event, 120))"
         />
 
         <input
@@ -69,6 +77,7 @@
           type="text"
           inputmode="numeric"
           placeholder="30"
+          @input="(event) => (remainingInstallments = handleInput(event, 120))"
         />
 
         <input
@@ -88,6 +97,9 @@
           type="text"
           inputmode="numeric"
           placeholder="500zł"
+          @input="
+            (event) => (currentLoanInstallment = handleInput(event, 5000, true))
+          "
         />
 
         <input
@@ -108,6 +120,7 @@
           v-model="commission"
           inputmode="numeric"
           placeholder="2.5%"
+          @input="(event) => (commission = handleInput(event, 15, true))"
         />
       </div>
 
@@ -149,6 +162,7 @@
 
 <script setup>
 import { ref } from "vue";
+import Swal from "sweetalert2";
 
 const result = ref(null);
 const interest = 10.99;
@@ -164,6 +178,17 @@ const savings = ref(null);
 const commission = ref(null);
 
 const checkLoan = () => {
+  if (
+    remainingInstallments.value === null ||
+    remainingLoanAmount.value === null ||
+    currentLoanInstallment.value
+  ) {
+    Swal.fire({
+      title: "Wypełnij wszystkie pola",
+      html: "Pola: <br>-Kwota Pozostałęgo Kredytu<br> -Liczba Pozostałych Rat <br> -Dotychczasowa Rata <br> muszą zostać uzupełnione",
+      icon: "info",
+    });
+  }
   const r = interest / 12 / 100;
   const P = remainingLoanAmount.value;
   const n = remainingInstallments.value;
@@ -191,6 +216,24 @@ const checkLoan = () => {
   } else {
     result.value = false;
   }
+};
+
+const handleInput = (event, max, decimalPoint = false) => {
+  let value = event.target.value;
+
+  if (Number(value) <= max) {
+    if (decimalPoint) {
+      return value
+        .replace(/[^\d.,]/g, "")
+        .replace(",", ".")
+        .replace(/^0+(\d)/, "$1")
+        .replace(/(\.\d{2})\d+/, "$1")
+        .replace(/(\..*)\./g, "$1");
+    } else {
+      return value.replace(/\D/g, "").replace(/^0+(\d)/, "$1");
+    }
+  }
+  return max;
 };
 </script>
 
