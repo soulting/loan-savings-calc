@@ -181,40 +181,53 @@ const checkLoan = () => {
   if (
     remainingInstallments.value === null ||
     remainingLoanAmount.value === null ||
-    currentLoanInstallment.value
+    currentLoanInstallment.value === null
   ) {
     Swal.fire({
       title: "Wypełnij wszystkie pola",
-      html: "Pola: <br>-Kwota Pozostałęgo Kredytu<br> -Liczba Pozostałych Rat <br> -Dotychczasowa Rata <br> muszą zostać uzupełnione",
+      html: "Pola: <br>-Kwota Pozostałego Kredytu<br> -Liczba Pozostałych Rat <br> -Dotychczasowa Rata <br> muszą zostać uzupełnione",
       icon: "info",
     });
-  }
-  const r = interest / 12 / 100;
-  const P = remainingLoanAmount.value;
-  const n = remainingInstallments.value;
-
-  ourInstallment.value = (
-    P *
-    ((r * Math.pow(1 + r, n)) / (Math.pow(1 + r, n) - 1))
-  ).toFixed(2);
-
-  const computedComisson = Number(
-    startingLoanAmount.value * (commission.value / 100)
-  );
-  const monthlyComisson = Number(computedComisson / totalInstallments.value);
-
-  difference.value = (
-    Number(currentLoanInstallment.value) +
-    Number(monthlyComisson) -
-    Number(ourInstallment.value)
-  ).toFixed(2);
-
-  savings.value = (difference.value * n).toFixed(2);
-
-  if (savings.value > 0) {
-    result.value = true;
   } else {
-    result.value = false;
+    const r = interest / 12 / 100;
+    const P = remainingLoanAmount.value;
+    const n = remainingInstallments.value;
+
+    ourInstallment.value = (
+      P *
+      ((r * Math.pow(1 + r, n)) / (Math.pow(1 + r, n) - 1))
+    ).toFixed(2);
+
+    if (
+      startingLoanAmount.value == null ||
+      totalInstallments.value === null ||
+      commission.value === null
+    ) {
+      difference.value = (
+        Number(currentLoanInstallment.value) - Number(ourInstallment.value)
+      ).toFixed(2);
+    } else {
+      const computedComisson = Number(
+        startingLoanAmount.value * (commission.value / 100)
+      );
+      const monthlyComisson = Number(
+        computedComisson / totalInstallments.value
+      );
+
+      difference.value = (
+        Number(currentLoanInstallment.value) +
+        Number(monthlyComisson) -
+        Number(ourInstallment.value)
+      ).toFixed(2);
+    }
+
+    savings.value = (difference.value * n).toFixed(2);
+
+    if (savings.value > 0) {
+      result.value = true;
+    } else {
+      result.value = false;
+    }
   }
 };
 
