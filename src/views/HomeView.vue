@@ -126,25 +126,38 @@
 
       <button class="check" @click="checkLoan">SPRAWDŹ</button>
     </section>
-    <section v-if="result === true" class="wynik">
+    <section v-if="result === true" class="wynik-section">
       <h1>Czy Możesz Zaoszczedzić Na Swoim Kredycie?</h1>
       <div class="wynik">
-        <h1 class="result-banner">TAK!!!</h1>
-        <h3>Twoja Rata</h3>
-        <h2>{{ currentLoanInstallment }}</h2>
-        <h3>Nasza Rata</h3>
-        <h2>{{ ourInstallment }}</h2>
-        <h3>Różnica</h3>
-        <h2>{{ difference }}</h2>
-        <h3>Łączna Oszczędność</h3>
-        <h2>{{ savings }}</h2>
-
-        <h3>Jeśli chcesz dowiedzieć się więcej, zadzwoń:</h3>
-
-        <h2>
-          Doradca klienta <br />Patryk Pączek <br />
-          +48 785 897 404
-        </h2>
+        <div class="result-banner">
+          <h1 class="">TAK!!!</h1>
+          <h2>Oszczędzając Miesięcznie:</h2>
+          <h3>{{ difference }}zł</h3>
+          <h2>Łącznie Oszczędzając:</h2>
+          <h3>{{ savings }}zł</h3>
+        </div>
+        <div class="stats">
+          <h3>
+            Twoja Rata:
+            <span style="font-weight: bold">{{ currentLoanInstallment }}</span>
+          </h3>
+          <h3 style="margin-bottom: 25px">
+            Nasza Rata:
+            <span style="font-weight: bold">{{ ourInstallment }}</span>
+          </h3>
+          <h3 style="margin-bottom: 15px">
+            Jeśli chcesz dowiedzieć się więcej, zadzwoń:
+          </h3>
+          <h2>Doradca klienta</h2>
+          <h2 style="font-weight: bold">Patryk Pączek</h2>
+          <h2 class="phone">
+            <a
+              href="tel:+48785897404"
+              style="text-decoration: none; color: inherit; font-weight: bold"
+              >+48 785 897 404</a
+            >
+          </h2>
+        </div>
       </div>
     </section>
     <section v-if="result === false" class="wynik">
@@ -154,8 +167,10 @@
       </h3>
       <h3>Jeśli chcesz dowiedzieć się więcej, zadzwoń:</h3>
 
-      <h2>Doradca klienta Patryk Pączek</h2>
-      <h2>+48 785 897 404</h2>
+      <h2 style="font-weight: bold">
+        Doradca klienta <br />Patryk Pączek <br />
+        +48 785 897 404
+      </h2>
     </section>
   </main>
 </template>
@@ -255,6 +270,7 @@ main {
   background-color: #f5f5f5;
   border-radius: 10px;
   /* user-select: none; */
+  font-family: Impact, Haettenschweiler, "Arial Narrow Bold", sans-serif;
 }
 
 h2,
@@ -318,9 +334,9 @@ input {
   display: flex;
   flex-direction: column;
   gap: 15px;
-  /* text-align: center; */
-  padding: 30px;
   text-align: center;
+  padding: 30px 20px;
+  align-items: center;
 }
 
 .wynik h2 {
@@ -328,15 +344,70 @@ input {
 }
 
 .result-banner {
-  height: 50px;
   background: linear-gradient(135deg, #771747, #b81d23);
+  padding: 15px;
   color: white;
   border-radius: 10px;
   flex-direction: column;
   align-content: space-around;
+  width: 100%;
 }
+
+.result-banner h1 {
+  color: white;
+  font-size: 38px;
+  margin-bottom: 10px;
+}
+.result-banner h2 {
+  color: white;
+  font-size: 18px;
+}
+
+.result-banner h3 {
+  color: white;
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.phone {
+  margin-top: 15px;
+  background-color: #393939;
+  padding: 15px;
+  color: white;
+  border-radius: 10px;
+  font-weight: bold;
+}
+
 .radius {
   accent-color: #ad1f66;
   border: none;
+}
+
+@media (min-width: 1000px) {
+  .wynik {
+    flex-direction: row;
+    gap: 55px;
+    align-items: flex-start;
+    justify-content: space-evenly;
+  }
+  .kredyt {
+    width: 1000px;
+  }
+
+  .result-banner {
+    width: 50%;
+    height: 276px;
+  }
+
+  .result-banner h1 {
+    font-size: 43px;
+  }
+  .result-banner h2 {
+    font-size: 23px;
+  }
+
+  .result-banner h3 {
+    font-size: 25px;
+  }
 }
 </style>
