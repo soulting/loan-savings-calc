@@ -1,6 +1,6 @@
 <template>
   <main>
-    <section class="kredyt">
+    <section class="loan-input-section">
       <h1>Kalkulator oszczędności na kredycie gotówkowym</h1>
       <div class="input">
         <h3>Początkowa Kwota Kredytu:</h3>
@@ -126,9 +126,9 @@
 
       <button class="check" @click="checkLoan">SPRAWDŹ</button>
     </section>
-    <section v-if="result === true" class="wynik-section">
+    <section v-if="result === true">
       <h1>Czy Możesz Zaoszczedzić Na Swoim Kredycie?</h1>
-      <div class="wynik">
+      <div class="result-section">
         <div class="result-banner">
           <h1 class="">TAK!!!</h1>
           <h2>Oszczędzając Miesięcznie:</h2>
@@ -139,28 +139,24 @@
         <div class="stats">
           <h3>
             Twoja Rata:
-            <span style="font-weight: bold">{{ currentLoanInstallment }}</span>
+            <span>{{ currentLoanInstallment }}</span>
           </h3>
           <h3 style="margin-bottom: 25px">
             Nasza Rata:
-            <span style="font-weight: bold">{{ ourInstallment }}</span>
+            <span>{{ ourInstallment }}</span>
           </h3>
           <h3 style="margin-bottom: 15px">
             Jeśli chcesz dowiedzieć się więcej, zadzwoń:
           </h3>
           <h2>Doradca klienta</h2>
-          <h2 style="font-weight: bold">Patryk Pączek</h2>
+          <h2><span> Patryk Pączek </span></h2>
           <h2 class="phone">
-            <a
-              href="tel:+48785897404"
-              style="text-decoration: none; color: inherit; font-weight: bold"
-              >+48 785 897 404</a
-            >
+            <a href="tel:+48785897404">+48 785 897 404</a>
           </h2>
         </div>
       </div>
     </section>
-    <section v-if="result === false" class="wynik">
+    <section v-if="result === false" class="result-section">
       <div>
         <h1>Czy możesz zaoszczedzić na swoim kredycie?</h1>
         <h3>
@@ -170,13 +166,9 @@
           Jeśli chcesz dowiedzieć się więcej, zadzwoń:
         </h3>
         <h2>Doradca klienta</h2>
-        <h2 style="font-weight: bold">Patryk Pączek</h2>
+        <h2><span>Patryk Pączek</span></h2>
         <h2 class="phone">
-          <a
-            href="tel:+48785897404"
-            style="text-decoration: none; color: inherit; font-weight: bold"
-            >+48 785 897 404</a
-          >
+          <a href="tel:+48785897404">+48 785 897 404</a>
         </h2>
       </div>
     </section>
@@ -284,9 +276,11 @@ main {
 h2,
 h3 {
   color: #771747;
+  user-select: none;
 }
 
 h1 {
+  user-select: none;
   text-align: center;
   margin-bottom: 25px;
   font-weight: bold;
@@ -318,7 +312,7 @@ input {
   cursor: pointer;
 }
 
-.kredyt {
+.loan-input-section {
   display: flex;
   flex-direction: column;
   padding: 30px;
@@ -336,7 +330,7 @@ input {
   cursor: pointer;
 }
 
-.wynik {
+.result-section {
   background-color: #e1e1e1;
   border-radius: 10px;
   display: flex;
@@ -347,7 +341,7 @@ input {
   align-items: center;
 }
 
-.wynik h2 {
+.result-section h2 {
   text-align: center;
 }
 
@@ -391,14 +385,24 @@ input {
   border: none;
 }
 
+.stats span {
+  font-weight: bold;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+  font-weight: bold;
+}
+
 @media (min-width: 1000px) {
-  .wynik {
+  .result-section {
     flex-direction: row;
     gap: 55px;
     align-items: flex-start;
     justify-content: space-evenly;
   }
-  .kredyt {
+  .loan-input-section {
     width: 1000px;
   }
 
