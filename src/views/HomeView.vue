@@ -161,16 +161,24 @@
       </div>
     </section>
     <section v-if="result === false" class="wynik">
-      <h1>Czy możesz zaoszczedzić na swoim kredycie?</h1>
-      <h3>
-        Wygląda na to, że na chwilę nie jestem w stanie obniżyć twojej raty.
-      </h3>
-      <h3>Jeśli chcesz dowiedzieć się więcej, zadzwoń:</h3>
-
-      <h2 style="font-weight: bold">
-        Doradca klienta <br />Patryk Pączek <br />
-        +48 785 897 404
-      </h2>
+      <div>
+        <h1>Czy możesz zaoszczedzić na swoim kredycie?</h1>
+        <h3>
+          Wygląda na to, że na chwilę nie jestem w stanie obniżyć twojej raty.
+        </h3>
+        <h3 style="margin-bottom: 15px">
+          Jeśli chcesz dowiedzieć się więcej, zadzwoń:
+        </h3>
+        <h2>Doradca klienta</h2>
+        <h2 style="font-weight: bold">Patryk Pączek</h2>
+        <h2 class="phone">
+          <a
+            href="tel:+48785897404"
+            style="text-decoration: none; color: inherit; font-weight: bold"
+            >+48 785 897 404</a
+          >
+        </h2>
+      </div>
     </section>
   </main>
 </template>
